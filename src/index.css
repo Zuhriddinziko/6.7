@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  html,
+  body,
+  #root {
+    @apply h-full;
+  }
+  main {
+    @apply flex flex-col h-full;
+  }
+  #root {
+    @apply flex flex-col;
+  }
+  main {
+    @apply grow;
+  }
+  .aline-element {
+    @apply max-w-6xl mx-auto px-5 w-full;
+  }
+}
