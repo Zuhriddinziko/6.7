@@ -5,7 +5,10 @@ import { GlobalContext } from "../context/GloblContext";
 function Navbar() {
   const { color, selectProduct } = useContext(GlobalContext);
   return (
-    <div className="bg-base-300 mb-6" style={{ backgroundColor: color }}>
+    <div
+      className="bg-base-300 mb-44 z-20 fixed top-0 left-0 w-full"
+      style={{ backgroundColor: color }}
+    >
       <div className="navbar  aline-element">
         <div className="flex-1 navbar-start">
           <Link to="/" className="btn btn-primary text-xl hidden md:flex">
