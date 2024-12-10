@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import Table from "../components/table";
+
 import { useGlobalContext } from "../hook/useGlobalContext";
 import { formatPrice } from "../utils";
+import { Table } from "../components";
 
 function Carts() {
   const { selectProduct, totalAmount, totalPrice } = useGlobalContext();
