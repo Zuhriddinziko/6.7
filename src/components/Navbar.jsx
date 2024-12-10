@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import NavbarLinks from "./NavbarLinks";
 import { useContext } from "react";
+import { formatPrice } from "../utils";
 import { GlobalContext } from "../context/GloblContext";
 function Navbar() {
-  const { color, selectProduct } = useContext(GlobalContext);
+  const { color, selectProduct, totalAmount, totalPrice } =
+    useContext(GlobalContext);
+
   return (
     <div
       className="bg-base-300 mb-44 z-20 fixed top-0 left-0 w-full"
@@ -56,7 +59,7 @@ function Navbar() {
                   />
                 </svg>
                 <span className="badge badge-sm indicator-item">
-                  {selectProduct.length}
+                  {totalAmount}
                 </span>
               </div>
             </div>
@@ -65,12 +68,14 @@ function Navbar() {
               className="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow"
             >
               <div className="card-body">
-                <span className="text-lg font-bold">8 Items</span>
-                <span className="text-info">Subtotal: $999</span>
+                <span className="text-lg font-bold">{totalAmount}</span>
+                <span className="text-info">
+                  Subtotal: {formatPrice(totalPrice)}
+                </span>
                 <div className="card-actions">
-                  <button className="btn btn-primary btn-block">
+                  <Link to={"/cart"} className="btn btn-primary btn-block">
                     View cart
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

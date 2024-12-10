@@ -1,9 +1,9 @@
-import { useContext } from "react";
+// import { useContext } from "react";
 import { Link, useLoaderData } from "react-router-dom";
-import { GlobalContext } from "../context/GloblContext";
-
+// import { GlobalContext } from "../context/GloblContext";
+import { useGlobalContext } from "../hook/useGlobalContext";
 function ProductsContainer() {
-  const { dispatch, selectProduct } = useContext(GlobalContext);
+  const { addProduct, selectProduct } = useGlobalContext();
   const { data } = useLoaderData();
 
   const buyProduct = (e, pro) => {
@@ -13,7 +13,7 @@ function ProductsContainer() {
       alert("already added");
       return;
     }
-    dispatch({ type: "ADD_PRODUCT", payload: pro });
+    addProduct({ ...pro, amount: 1 });
   };
   // const { data } = useLoaderData();
   return (
