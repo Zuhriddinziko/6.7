@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import { useGlobalContext } from "../hook/useGlobalContext";
 import { formatPrice } from "../utils";
-import { Table } from "../components";
+import { TableFrom } from "../components";
 
 function Carts() {
   const { selectProduct, totalAmount, totalPrice } = useGlobalContext();
@@ -38,7 +38,7 @@ function Carts() {
           <tbody>
             {selectProduct.map((proo) => {
               return (
-                <Table
+                <TableFrom
                   key={proo.id}
                   id={proo.id}
                   brand={proo.brand}

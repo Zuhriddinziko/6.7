@@ -1,6 +1,7 @@
 import { useGlobalContext } from "../hook/useGlobalContext";
 import { formatPrice } from "../utils";
-function Table({ id, title, price, amount, brand, thumbnail }) {
+
+function TableFrom({ id, title, price, amount, brand, thumbnail }) {
   const { changeAmount, removeProduct } = useGlobalContext();
   // console.log(removeProduct);
   return (
@@ -52,4 +53,4 @@ function Table({ id, title, price, amount, brand, thumbnail }) {
   );
 }
 
-export default Table;
+export default TableFrom;
