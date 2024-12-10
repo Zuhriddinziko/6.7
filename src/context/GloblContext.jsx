@@ -14,7 +14,7 @@ const changeState = (state, action) => {
     case "CHANGE_AMOUNT":
       return { ...state, selectProduct: payload };
     case "REMOVE_PRODUCT":
-      return { ...state, selectFilter: payload };
+      return { ...state, selectProduct: payload };
   }
 };
 export function GlobalContextProvider({ children }) {

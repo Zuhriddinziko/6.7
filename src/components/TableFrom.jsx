@@ -3,7 +3,7 @@ import { formatPrice } from "../utils";
 
 function TableFrom({ id, title, price, amount, brand, thumbnail }) {
   const { changeAmount, removeProduct } = useGlobalContext();
-  // console.log(removeProduct);
+
   return (
     <tr>
       <th>
@@ -38,14 +38,23 @@ function TableFrom({ id, title, price, amount, brand, thumbnail }) {
         </button>
         <h3>{amount}</h3>
         <button
-          onClick={() => changeAmount(id, "decrement")}
+          onClick={() => {
+            if (amount <= 1) {
+              removeProduct(id);
+            } else {
+              changeAmount(id, "decrement");
+            }
+          }}
           className=" btn btn-sm "
         >
           -
         </button>
       </td>
       <th>
-        <button onClick={() => re(id)} className="btn btn-sm  btn-secondary">
+        <button
+          onClick={() => removeProduct(id)}
+          className="btn btn-sm  btn-secondary"
+        >
           delete
         </button>
       </th>
