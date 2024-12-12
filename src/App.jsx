@@ -1,5 +1,9 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 
 // layouts
 import MainLayouts from "./layouts/MainLayouts";
@@ -16,11 +20,19 @@ import {
 // loader
 import { loader as HomeLoader } from "./pages/Home";
 import { loader as SinleProductsLoder } from "./pages/SingleProduct";
+import ProtectedRouteres from "./components/ProtectedRouteres";
+import { useGlobalContext } from "./hook/useGlobalContext";
 function App() {
+  const { user, authReady } = useGlobalContext();
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <MainLayouts />,
+
+      element: (
+        <ProtectedRouteres user={user}>
+          <MainLayouts />
+        </ProtectedRouteres>
+      ),
       children: [
         {
           index: true,
@@ -31,14 +43,7 @@ function App() {
           path: "/cart",
           element: <Carts />,
         },
-        {
-          path: "/login",
-          element: <Login />,
-        },
-        {
-          path: "/register",
-          element: <Register />,
-        },
+
         {
           path: "/aboute",
           element: <Aboute />,
@@ -54,14 +59,16 @@ function App() {
         },
       ],
     },
+    {
+      path: "/login",
+      element: user ? <Navigate to="/" /> : <Login />,
+    },
+    {
+      path: "/register",
+      element: user ? <Navigate to="/" /> : <Register />,
+    },
   ]);
-  return (
-    <>
-      <div>
-        <RouterProvider router={router} />
-      </div>
-    </>
-  );
+  return <>{authReady && <RouterProvider router={router} />}</>;
 }
 
 export default App;

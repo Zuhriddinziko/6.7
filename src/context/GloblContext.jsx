@@ -1,3 +1,5 @@
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/firebaseConfig";
 import { createContext, useEffect, useReducer } from "react";
 
 export const GlobalContext = createContext();
@@ -5,6 +7,10 @@ export const GlobalContext = createContext();
 const changeState = (state, action) => {
   const { type, payload } = action;
   switch (type) {
+    case "LOGIN":
+      return { ...state, user: payload };
+    case "AUTH_READY":
+      return { ...state, authReady: true };
     case "ADD_PRODUCT":
       return { ...state, selectProduct: [...state.selectProduct, payload] };
     case "CHANGE_COLOR":
@@ -15,14 +21,19 @@ const changeState = (state, action) => {
       return { ...state, selectProduct: payload };
     case "REMOVE_PRODUCT":
       return { ...state, selectProduct: payload };
+    default: {
+      return state;
+    }
   }
 };
 export function GlobalContextProvider({ children }) {
   const [state, dispatch] = useReducer(changeState, {
+    user: null,
     color: "",
     selectProduct: [],
     totalPrice: 0,
     totalAmount: 0,
+    authReady: false,
   });
   // amount product
   const canculate = () => {
@@ -71,6 +82,14 @@ export function GlobalContextProvider({ children }) {
     );
     dispatch({ type: "REMOVE_PRODUCT", payload: selectFilter });
   };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      dispatch({ type: "LOGIN", payload: user });
+      dispatch({ type: "AUTH_READY" });
+    });
+  }, []);
+
   useEffect(() => {
     canculate();
   }, [state.selectProduct]);

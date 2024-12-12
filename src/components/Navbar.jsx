@@ -3,7 +3,11 @@ import NavbarLinks from "./NavbarLinks";
 import { useContext } from "react";
 import { formatPrice } from "../utils";
 import { GlobalContext } from "../context/GloblContext";
+import { useSingUp } from "../hook/useSingUp";
+import { useSignout } from "../hook/useSignout";
+
 function Navbar() {
+  const { useSignouts } = useSignout();
   const { color, selectProduct, totalAmount, totalPrice } =
     useContext(GlobalContext);
 
@@ -107,7 +111,7 @@ function Navbar() {
                 <a>Settings</a>
               </li>
               <li>
-                <a>Logout</a>
+                <span onClick={useSignouts}>Logout</span>
               </li>
             </ul>
           </div>
