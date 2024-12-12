@@ -1,18 +1,19 @@
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { auth } from "../firebase/firebaseConfig";
 import { signOut } from "firebase/auth";
 export const useSignout = () => {
   const useSignouts = () => {
     signOut(auth)
       .then(() => {
-        toast.success("See you soon");
+        alert("See you soon");
         // Sign-out successful.
       })
       .catch((error) => {
-        toast.error(error.message);
+        alert(error.message);
 
         // An error happened.
       });
+    // <ToastContainer />;
   };
   return { useSignouts };
 };
